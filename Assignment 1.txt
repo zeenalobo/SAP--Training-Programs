@@ -1,0 +1,30 @@
+
+TASK 1:Depending on material Number, print the Material description and language from the table MAKT.
+
+
+*&---------------------------------------------------------------------*
+*& Report ZZEENAL_MATERIALDESCRIPTION
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZEENAL_MATERIALDESCRIPTION.
+
+PARAMETERS P_MATNR TYPE MAKT-MATNR.
+
+TYPES :BEGIN OF TY_MAKT,
+        MATNR TYPE MAKT-MATNR,
+        SPRAS TYPE MAKT-SPRAS,
+        MAKTX TYPE MAKT-MAKTX,
+  END OF TY_MAKT.
+
+ DATA DT_MAKT TYPE TY_MAKT.
+ WRITE : / 'MATERIAL ID',
+           30 'LANGUAGE KEY',
+           50 'MATERIAL DESCRIPTION'.
+
+ SELECT MATNR SPRAS MAKTX FROM MAKT INTO DT_MAKT WHERE MATNR EQ P_MATNR.
+   WRITE : / DT_MAKT-MATNR,
+             30  DT_MAKT-SPRAS,
+             50 DT_MAKT-MAKTX.
+   ENDSELECT.
+

@@ -1,0 +1,29 @@
+
+Task 2: Depending on Plant ID, print all the materials under this plant ID from table MARD.
+
+
+*&---------------------------------------------------------------------*
+*& Report ZZEENAL_MATERIALPLANT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZEENAL_MATERIALPLANT.
+
+PARAMETERS P_WERKS TYPE MARD-WERKS.
+
+TYPES : BEGIN OF TY_MARD,
+        WERKS TYPE MARD-WERKS,
+        MATNR TYPE MARD-MATNR,
+        LGORT TYPE MARD-LGORT,
+  END OF ty_mard.
+
+  DATA DT_MARD TYPE ty_mard.
+  WRITE : / 'PLANT NO',
+           20 'MATERIAL NO',
+           40 'STORAGE LOCATION'.
+
+  SELECT werks matnr lgort from mard INTO dt_mard where werks eq p_werks.
+    write : / dt_mard-werks,
+             20 dt_mard-matnr,
+             40 dt_mard-lgort.
+    ENDSELECT.

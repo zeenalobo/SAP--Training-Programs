@@ -1,0 +1,36 @@
+
+Task 3 :  Depending on Plant ID, print all the materials and also material description under this plant ID from table MARD and MAKT.
+
+
+*&---------------------------------------------------------------------*
+*& Report ZZEENAL_PLANTPROGRAM
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZZEENAL_PLANTPROGRAM.
+
+PARAMETERS p_werks TYPE mard-werks.
+
+TYPES : BEGIN OF ty_mard,
+          werks TYPE mard-werks,
+          matnr TYPE mard-matnr,
+          lgort TYPE mard-lgort,
+        END OF ty_mard.
+
+DATA dy_mard TYPE ty_mard.
+DATA dy_maktx TYPE makt-maktx.
+
+WRITE : / 'plant no',
+         20 'material no',
+         50 'material description',
+         90 'storage location'.
+
+  SELECT werks matnr lgort FROM mard INTO dy_mard WHERE werks EQ p_werks.
+
+    SELECT SINGLE maktx FROM makt INTO dy_maktx WHERE matnr EQ dy_mard-matnr.
+
+    WRITE : / dy_mard-werks,
+            20 dy_mard-matnr,
+            50 dy_maktx,
+            90 dy_mard-lgort.
+  ENDSELECT.
